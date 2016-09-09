@@ -47,21 +47,25 @@ struct Point
 
 	Point move( const Direction& direction, const int& difference = 1 ) noexcept;
 
-	static Point tilePosition( const Point& that, const uint16_t& sizeInTiles );
-	static Point chunkPosition( const Point& that,const uint16_t& sizeInTiles );
-	static Point internalPosition( const Point& that,const uint16_t& sizeInTiles );
+	Point tile( const uint16_t& sizeInTiles ) const noexcept;
+	Point chunk( const uint16_t& sizeInTiles ) const noexcept;
+	Point internal( const uint16_t& sizeInTiles ) const noexcept;
 
 	coordinate x;
 	coordinate y;
 };
 
-struct PointHasher
+namespace std
 {
-	std::size_t operator()( const Point& k ) const
+	template <>
+	struct hash< Point >
 	{
-		return ( ( std::hash< Point::coordinate >()( k.x ) xor
-			( std::hash< Point::coordinate >()( k.y ) << 1 ) ) >> 1 );
-  }
-};
+		std::size_t operator()( const Point& k ) const
+		{
+			return ( ( std::hash< Point::coordinate >()( k.x ) xor
+				( std::hash< Point::coordinate >()( k.y ) << 1 ) ) >> 1 );
+		}
+	};
+}
 
 #endif

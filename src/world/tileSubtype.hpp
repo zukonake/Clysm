@@ -1,9 +1,11 @@
 #ifndef TILESUBTYPE_HPP
 #define TILESUBTYPE_HPP
 
-class TileSubtype
+#include <ext/loadable.hpp>
+
+class TileSubtype : Loadable, Renderable
 {
-	
+
 };
 
 #endif

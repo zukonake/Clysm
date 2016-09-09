@@ -4,7 +4,7 @@
 #include <core/client.hpp>
 #include <core/server.hpp>
 
-int main( int argc, char* argv[] )
+int main()
 {
 	Client localClient( { 800, 600 }, "ClysmClient" );
 	Server* localServer = new Server();

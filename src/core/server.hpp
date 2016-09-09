@@ -7,6 +7,7 @@
 //
 #include <nonCopyable.hpp>
 #include <entity/player.hpp>
+#include <core/dataset.hpp>
 
 class Client;
 
@@ -15,7 +16,7 @@ class Client;
 class Server : NonCopyable
 {
 public:
-	Server() = default;
+	Server();
 	~Server();
 
 	void loop();
@@ -23,7 +24,9 @@ public:
 	void connect( Client* client );
 	void disconnect( Client* client );
 private:
-	std::vector< std::pair< Player, Client* > > clients;
+	std::vector< std::pair< Player, Client* > > mClients;
+
+	Dataset mDataset;
 };
 
 #endif

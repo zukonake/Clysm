@@ -2,20 +2,25 @@
 #define PLAYER_HPP
 
 #include <vector>
-#include <SFML/Window/Event.hpp>
 //
-#include <entity/entity.hpp>
-#include <rendering/renderData.hpp>
+#include <entity/animal.hpp>
+#include <outputData.hpp>
 
-class RenderData;
+struct InputData;
+class Dataset;
 
-class Player : public Entity
+class Player : public Animal
 {
 public:
-	using Entity::Entity;
+	Player( const Dataset& dataset, const Point& position, World* world );
 
-	std::vector< RenderData > composeRenderData();
-	void parseInput( std::vector< sf::Event > events );
+	OutputData requestOutputData() noexcept;
+	void receiveInputData( InputData inputData ) noexcept;
+private:
+	OutputData mOutputData;
+	uint8_t mSpriteSize;
+	uint8_t mTileSize;
+	Point mScreenSize;
 };
 
 #endif

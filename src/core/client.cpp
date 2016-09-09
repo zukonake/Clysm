@@ -1,6 +1,7 @@
 #include "client.hpp"
 #include <core/server.hpp>
-#include <rendering/renderData.hpp>
+#include <outputData.hpp>
+#include <inputData.hpp>
 
 Client::Client( const Point& windowSize, const std::string& windowTitle ) :
 	SFMLAdapter( windowSize, windowTitle )
@@ -16,14 +17,19 @@ Client::~Client()
 	}
 }
 
-std::vector< sf::Event > Client::requestInput()
+InputData Client::requestInputData() noexcept
 {
-	return SFMLAdapter::getEvents();
+	InputData returnValue;
+	returnValue.events = SFMLAdapter::getEvents();
+	return returnValue;
 }
 
-void Client::receiveRenderData( std::vector< RenderData > renderData )
+void Client::receiveOutputData( OutputData outputData ) noexcept
 {
-	render( renderData );
+	if( outputData.end == true )
+	{
+		disconnect();
+	}
 }
 
 void Client::connect( Server* server )
@@ -43,7 +49,7 @@ bool Client::isConnected() const noexcept
 	return mServer != nullptr;
 }
 
-void Client::render( std::vector< RenderData > renderData )
+void Client::render()
 {
 	//TODO
 }

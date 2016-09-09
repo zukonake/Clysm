@@ -3,37 +3,40 @@
 
 #include <string>
 #include <vector>
-#include <SFML/Window/Event.hpp>
 //
 #include <nonCopyable.hpp>
 #include <ext/SFMLAdapter.hpp>
+#include <core/dataset.hpp>
 
 struct Point;
 class Server;
-class RenderData;
+struct OutputData;
+struct InputData;
 
 /*TODO
  *have autonomous thread which renders until next data is received
  *networking stuff( ip etc. )
+ *render only differences from previous data
  */
 
 
-class Client : SFMLAdapter
+class Client : virtual NonCopyable, SFMLAdapter
 {
 public:
 	Client( const Point& windowSize, const std::string& windowTitle );
 	~Client();
 
-	std::vector< sf::Event > requestInput();
-	void receiveRenderData( std::vector< RenderData > renderData );
+	InputData requestInputData() noexcept;
+	void receiveOutputData( OutputData outputData ) noexcept;
 
 	void connect( Server* server );
 	void disconnect();
 
 	bool isConnected() const noexcept;
 private:
-	void render( std::vector< RenderData > renderData );
+	void render();
 
+	Dataset mDataset;
 	Server* mServer = nullptr;
 };
 

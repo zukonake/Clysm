@@ -9,12 +9,12 @@
 #include <nonCopyable.hpp>
 #include <geometry/point.hpp>
 
-class SFMLAdapter : NonCopyable
+class SFMLAdapter : virtual NonCopyable
 {
 public:
 	SFMLAdapter( const Point& windowSize, const std::string& windowTitle );
 
-	virtual ~SFMLAdapter();
+	virtual ~SFMLAdapter() noexcept;
 
 	void update() noexcept;
 

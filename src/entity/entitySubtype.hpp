@@ -3,9 +3,9 @@
 
 #include <ext/loadable.hpp>
 
-class EntitySubtype : Loadable
+class EntitySubtype : Loadable, Renderable
 {
-	
+
 };
 
 #endif

@@ -1,10 +1,16 @@
 #include "server.hpp"
 #include <core/client.hpp>
 #include <entity/player.hpp>
+#include <inputData.hpp>
+
+Server::Server()
+{
+
+}
 
 Server::~Server()
 {
-	for( auto& iPair : clients )
+	for( auto& iPair : mClients )
 	{
 		iPair.second->disconnect();
 	}
@@ -12,20 +18,22 @@ Server::~Server()
 
 void Server::loop()
 {
-	for( auto& iPair : clients )
+	for( auto& iPair : mClients )
 	{
-		iPair.first.parseInput( iPair.second->requestInput() );
-		iPair.second->receiveRenderData( iPair.first.composeRenderData() );
+		iPair.first.receiveInputData( iPair.second->requestInputData() );
+		iPair.second->receiveOutputData( iPair.first.requestOutputData() );
 	}
 	//TODO simulations
 }
 
 void Server::connect( Client* client )
 {
-	clients.push_back( std::pair< Player, Client* >( Player( { 0, 0 }, nullptr, nullptr ), client ) );
+	mClients.push_back( std::pair< Player, Client* >( Player( mDataset, { 0, 0 }, nullptr ), client ) ); //TODO assign world
 }
 
 void Server::disconnect( Client* client )
 {
-
+	//auto iClient = std::find_if( mClients.begin(), mClients.end(),TODO
+	//[ client ]( std::pair< Player, Client* > pair )->bool { return pair.second == client; });
+	//mClients.erase( iClient );
 }

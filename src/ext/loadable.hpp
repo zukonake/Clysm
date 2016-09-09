@@ -5,7 +5,8 @@
 
 class Loadable
 {
-protected:
+public:
+	Loadable() = delete;
 	explicit Loadable( lua_State* luaState );
 	virtual ~Loadable() = default;
 };
