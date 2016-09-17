@@ -1,16 +1,14 @@
 #include "dataset.hpp"
-#include <iostream>
-#include <exception>
 //
-#include <ext/loadable.hpp>
+#include <entity/entitySubtype.hpp>
+#include <tile/tileSubtype.hpp>
 
 Dataset::Dataset()
 {
 	loadConfig();
-	for( auto iFolder : mDirectories )
-	{
-		initializeObjects( iFolder );
-	}
+	//std::string datasetName = getConfigField< std::string >( "datasetName" );
+	//initializeObjects< EntitySubtype >( mDatasetPath + datasetName + "entitySubtype" );
+	//initializeObjects< TileSubtype >( mDatasetPath + datasetName + "tileSubtype" );
 }
 
 Dataset::~Dataset()
@@ -19,32 +17,14 @@ Dataset::~Dataset()
 	{
 		delete iPair.second;
 	}
-}
-
-const Loadable* Dataset::getObject( const std::string& key ) const
-{
-	return mObjects.at( key );
-}
-
-std::unordered_map< std::string, Loadable* > Dataset::initializeObjects( const std::string& directoryPath )
-{
-	std::unordered_map< std::string, Loadable* > output;
-	try
-	{
-		/*for( auto iFile : mFileSystem.listFiles( mDatasetPath + getConfigField< std::string >( "datasetName" ) + directoryPath ) )
-		{
-
-		}*/
-	}
-	catch( std::exception& e)
-	{
-		std::cerr << "Dataset::initializeObjects: Unhandled exception: " << e.what() << "\n";
-	}
-	return output;
+	delete mConfigFile;
+	delete mConfig;
 }
 
 void Dataset::loadConfig()
 {
-	luaWrapper.executeScript( mDatasetPath + mConfigFile );
-	mConfig = luaWrapper.getTable( "config" );
+	mConfigFile = luaStack.loadFile( mDatasetPath + mConfigPath );
+	luaStack.call();
+	luaStack.loadGlobal( "config" );
+	mConfig = luaStack.get< const LPP::Table >();
 }

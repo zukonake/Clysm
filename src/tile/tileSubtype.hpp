@@ -3,9 +3,10 @@
 
 #include <ext/loadable.hpp>
 
-class TileSubtype : Loadable, Renderable
+class TileSubtype : public Loadable
 {
-
+public:
+	TileSubtype( const LPP::Table* table );
 };
 
 #endif

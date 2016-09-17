@@ -3,9 +3,10 @@
 
 #include <ext/loadable.hpp>
 
-class EntitySubtype : Loadable, Renderable
+class EntitySubtype : public Loadable
 {
-
+public:
+	EntitySubtype( const LPP::Table* table );
 };
 
 #endif

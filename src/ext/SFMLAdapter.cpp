@@ -2,19 +2,6 @@
 #include <iostream>
 #include <exception>
 
-SFMLAdapter::SFMLAdapter( const Point& windowSize, const std::string& windowTitle )
-{
-	mWindow.create( sf::VideoMode( windowSize.x, windowSize.y, 32 ), windowTitle );
-	if( !mWindow.isOpen() )
-	{
-		throw std::runtime_error( "SFMLAdapter::initialize, couldn't initialize window." );
-		return;
-	}
-	mWindow.clear( sf::Color( 0, 0, 0 ) );
-	mWindow.setVerticalSyncEnabled( true );
-	mWindow.setFramerateLimit( 60 );
-}
-
 SFMLAdapter::~SFMLAdapter() noexcept
 {
 	mWindow.close();
@@ -24,6 +11,19 @@ void SFMLAdapter::update() noexcept
 {
 	mWindow.display();
 	mWindow.clear( sf::Color( 0, 0, 0 ) );
+}
+
+void SFMLAdapter::openWindow( const Point& windowSize, const std::string& windowTitle )
+{
+	mWindow.create( sf::VideoMode( windowSize.x, windowSize.y, 32 ), windowTitle );
+	if( !mWindow.isOpen() )
+	{
+		throw std::runtime_error( "SFMLAdapter::openWindow: couldn't initialize window" );
+		return;
+	}
+	mWindow.clear( sf::Color( 0, 0, 0 ) );
+	mWindow.setVerticalSyncEnabled( true );
+	mWindow.setFramerateLimit( 60 );
 }
 
 bool SFMLAdapter::isRunning() const noexcept

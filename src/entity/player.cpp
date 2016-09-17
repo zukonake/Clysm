@@ -1,6 +1,8 @@
 #include "player.hpp"
-#include <SFML/Window/Event.hpp>
 #include <iostream>
+//
+#include <SFML/Window/Event.hpp>
+#include <luaPP.hpp>
 //
 #include <core/dataset.hpp>
 #include <outputData.hpp>
@@ -8,22 +10,25 @@
 
 Player::Player( const Dataset& dataset, const Point& position, World* world ) :
 	Animal( position, world, nullptr ), //TODO change to human
-	mSpriteSize( dataset.getConfigField< int >( "spriteSize" )),
-	mTileSize( dataset.getConfigField< int >( "tileSize" ) ),
-	mScreenSize( dataset.getConfigField< Point >( "screenSize" ))
+	mSpriteSize( *dataset.getConfig< LPP::Number >( "spriteSize" )),
+	mTileSize( *dataset.getConfig< LPP::Number >( "tileSize" ) ),
+	mWindowSize( dataset.getConfig< LPP::Table >( "windowSize" )),
+	mWindowTitle( *dataset.getConfig< LPP::String>( "windowTitle" ))
 {
-	std::cout << (int) mScreenSize.x;
+
 }
 
 OutputData Player::requestOutputData() noexcept
 {
-	for( uint16_t iY = 0; iY < mScreenSize.y / mTileSize; iY++ )
+	for( uint16_t iY = 0; iY < mWindowSize.y / mTileSize; iY++ )
 	{
-		for( uint16_t iX = 0; iX < mScreenSize.x / mTileSize; iX++ )
+		for( uint16_t iX = 0; iX < mWindowSize.x / mTileSize; iX++ )
 		{
 			//mOutputData.tileMap[{ iX, iY }];
 		}
 	}
+	mOutputData.windowSize = mWindowSize;
+	mOutputData.windowTitle = mWindowTitle;
 	return mOutputData; //TODO
 }
 

@@ -1,3 +1,6 @@
-name = "Grass"
-texturePosX = 0
-texturePosY = 0
+luaPP =
+{
+	loadableName = "grass",
+	name = "Grass",
+	texturePosition = { x = 0, y = 0 }
+}

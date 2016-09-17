@@ -12,11 +12,13 @@
 class SFMLAdapter : virtual NonCopyable
 {
 public:
-	SFMLAdapter( const Point& windowSize, const std::string& windowTitle );
+	SFMLAdapter() = default;
 
 	virtual ~SFMLAdapter() noexcept;
 
 	void update() noexcept;
+
+	void openWindow( const Point& windowSize, const std::string& windowTitle );
 
 	bool isRunning() const noexcept;
 	bool isKeyPressed( sf::Keyboard::Key key ) const noexcept;

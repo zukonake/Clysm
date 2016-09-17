@@ -3,12 +3,6 @@
 #include <outputData.hpp>
 #include <inputData.hpp>
 
-Client::Client( const Point& windowSize, const std::string& windowTitle ) :
-	SFMLAdapter( windowSize, windowTitle )
-{
-
-}
-
 Client::~Client()
 {
 	if( !isConnected() )
@@ -29,7 +23,13 @@ void Client::receiveOutputData( OutputData outputData ) noexcept
 	if( outputData.end == true )
 	{
 		disconnect();
+		return;
 	}
+	if( !SFMLAdapter::isRunning())
+	{
+		SFMLAdapter::openWindow( outputData.windowSize, outputData.windowTitle );
+	}
+	render( outputData );
 }
 
 void Client::connect( Server* server )
@@ -49,7 +49,7 @@ bool Client::isConnected() const noexcept
 	return mServer != nullptr;
 }
 
-void Client::render()
+void Client::render( const OutputData& outputData )
 {
 	//TODO
 }

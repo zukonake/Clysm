@@ -20,7 +20,8 @@ private:
 	OutputData mOutputData;
 	uint8_t mSpriteSize;
 	uint8_t mTileSize;
-	Point mScreenSize;
+	Point mWindowSize;
+	std::string mWindowTitle;
 };
 
 #endif

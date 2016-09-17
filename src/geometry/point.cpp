@@ -45,6 +45,13 @@ Point::Point( const sf::Vector2< unsigned int >& that ) noexcept :
 
 }
 
+Point::Point( const LPP::Table* table ) noexcept :
+	x( ( coordinate )*table->at< LPP::Number >( "x" ) ),
+	y( ( coordinate )*table->at< LPP::Number >( "y" ) )
+{
+
+}
+
 Point::operator sf::Vector2< float >() const noexcept
 {
 	return sf::Vector2< float >( ( float ) x, ( float ) y );

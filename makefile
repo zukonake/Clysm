@@ -9,12 +9,12 @@ HEADERS := $(shell find $(SOURCE_PATH) -type f -name "*.hpp" -printf '%p ')
 OBJS := $(addprefix $(OBJ_PATH),$(patsubst %.cpp,%.o,$(shell find $(SOURCE_PATH) -type f -name "*.cpp" -exec basename {} \;)))
 DEBUG := -g -O0
 STD := -std=c++14
-LDLIBS :=  -lboost_filesystem -lboost_system -lsfml-window -lsfml-graphics -lsfml-system -lnoise -llua5.2
+LDLIBS :=  -lboost_filesystem -lboost_system -lsfml-window -lsfml-graphics -lsfml-system -lnoise -llua5.2 -lluapp
 INCFLAGS := -I include -I src
 LIBFLAGS := -L lib -L /usr/lib
-CXXFLAGS := $(STD) -Wall -Wextra $(DEBUG) $(INCFLAGS)
-LDFLAGS := $(STD) -Wall -Wextra $(LDLIBS) $(DEBUG) $(INCFLAGS) $(LIBFLAGS)
-COMPILER := clang++
+CXXFLAGS := $(STD) -Wall $(DEBUG) $(INCFLAGS)
+LDFLAGS := $(STD) -Wall $(LDLIBS) $(DEBUG) $(INCFLAGS) $(LIBFLAGS)
+COMPILER := g++
 
 .PHONY : clean run
 

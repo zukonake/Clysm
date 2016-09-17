@@ -1,4 +1,6 @@
 #include "worldGenerator.hpp"
+//
+#include <core/dataset.hpp>
 
 WorldGenerator::WorldGenerator( int32_t seed, const Dataset& dataset ) :
 	mSeed( seed ),
@@ -9,7 +11,8 @@ WorldGenerator::WorldGenerator( int32_t seed, const Dataset& dataset ) :
 
 Chunk WorldGenerator::generateChunk( const Point& chunkPosition )
 {
-	return Chunk();
+	Chunk returnValue;
+	return returnValue;
 }
 
 const int32_t& WorldGenerator::getSeed() const noexcept
@@ -19,5 +22,8 @@ const int32_t& WorldGenerator::getSeed() const noexcept
 
 Chunk::Field WorldGenerator::generateField( const Point& tilePosition )
 {
-	return Chunk::Field();
+	Chunk::Field returnValue;
+	returnValue.first = nullptr;
+	returnValue.second = new Tile( mDataset.getObject< TileSubtype >( "grass" ));
+	return returnValue;
 }

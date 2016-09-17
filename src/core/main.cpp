@@ -1,12 +1,11 @@
 #include <iostream>
 #include <string>
-#include <ext/luaWrapper.hpp>
 #include <core/client.hpp>
 #include <core/server.hpp>
 
 int main()
 {
-	Client localClient( { 800, 600 }, "ClysmClient" );
+	Client localClient;
 	Server* localServer = new Server();
 	localClient.connect( localServer );
 	try

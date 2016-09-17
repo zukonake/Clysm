@@ -1,13 +1,17 @@
 #ifndef LOADABLE_HPP
 #define LOADABLE_HPP
 
-#include <lua5.2/lua.hpp>
+namespace LPP
+{
+	class Table;
+}
 
 class Loadable
 {
 public:
 	Loadable() = delete;
-	explicit Loadable( lua_State* luaState );
+	explicit Loadable( const LPP::Table* table ) { }
+
 	virtual ~Loadable() = default;
 };
 

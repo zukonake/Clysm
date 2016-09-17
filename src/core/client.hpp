@@ -23,7 +23,7 @@ struct InputData;
 class Client : virtual NonCopyable, SFMLAdapter
 {
 public:
-	Client( const Point& windowSize, const std::string& windowTitle );
+	Client() = default;
 	~Client();
 
 	InputData requestInputData() noexcept;
@@ -34,7 +34,7 @@ public:
 
 	bool isConnected() const noexcept;
 private:
-	void render();
+	void render( const OutputData& outputData );
 
 	Dataset mDataset;
 	Server* mServer = nullptr;

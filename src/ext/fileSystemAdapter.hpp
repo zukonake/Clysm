@@ -7,8 +7,9 @@
 //
 #include <nonCopyable.hpp>
 
-struct FileSystemAdapter : std::fstream, NonCopyable
+class FileSystemAdapter : std::fstream, virtual NonCopyable
 {
+public:
 	FileSystemAdapter() = default;
 
 	~FileSystemAdapter();

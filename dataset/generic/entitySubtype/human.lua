@@ -1,2 +1,6 @@
-name = "Human"
-sprite = human.png 
+luaPP =
+{
+	loadableName = "human",
+	name = "Human",
+	sprite = human.png
+}

@@ -4,7 +4,9 @@
 #include <functional>
 #include <cstdint>
 #include <iostream>
+//
 #include <SFML/System/Vector2.hpp>
+#include <luaPP.hpp>
 
 struct Direction;
 
@@ -19,6 +21,7 @@ struct Point
 	Point( const sf::Vector2< float >& that ) noexcept;
 	Point( const sf::Vector2< int >& that ) noexcept;
 	Point( const sf::Vector2< unsigned int >& that ) noexcept;
+	Point( const LPP::Table* table ) noexcept;
 	Point() noexcept : x( 0 ), y ( 0 ) { }
 
 	virtual ~Point() = default;
