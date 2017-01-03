@@ -1,2 +1,2 @@
 # Clysm
-Open world zombie survival top-down shooter.
+Old project, discontinued.
